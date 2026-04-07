@@ -74,7 +74,11 @@ varargout{1} = handles.output;
 
 % --- Executes on button press in pushbutton1.
 function pushbutton1_Callback(hObject, eventdata, handles)
+handles = ensureGuideHandles(hObject, handles);
 [a b] = uigetfile('*.*','All Files');
+if isequal(a,0) || isequal(b,0)
+    return;
+end
 img1=imread([b a]);
 handles.img1 = img1;
 guidata(hObject, handles);
@@ -85,7 +89,11 @@ imshow(img1,'Parent',handles.axes7);
 
 % --- Executes on button press in pushbutton2.
 function pushbutton2_Callback(hObject, eventdata, handles)
+handles = ensureGuideHandles(hObject, handles);
 [a b] = uigetfile('*.*','All Files');
+if isequal(a,0) || isequal(b,0)
+    return;
+end
 img2=imread([b a]);
 handles.img2 = img2;
 guidata(hObject, handles);
@@ -95,6 +103,7 @@ imshow(img2,'Parent',handles.axes8);
 
 % --- Executes on button press in pushbutton3.
 function pushbutton3_Callback(hObject, eventdata, handles)
+handles = ensureGuideHandles(hObject, handles);
 set(handles.panel, 'visible','off')
 if isfield(handles, 'img1') && isfield(handles, 'img2')
     [V1,imgp1] = SignatureProjectFuntion(handles.img1);
@@ -126,6 +135,7 @@ function pushbutton10_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton10 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+handles = ensureGuideHandles(hObject, handles);
 set(handles.panel, 'visible','on')
 set(handles.panel2, 'visible','off')
 
@@ -135,7 +145,22 @@ function pushbutton11_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton11 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+handles = ensureGuideHandles(hObject, handles);
 cla (handles.axes1,'reset');
 cla (handles.axes2,'reset');
 cla (handles.axes7,'reset');
 cla (handles.axes8,'reset');
+
+function handles = ensureGuideHandles(hObject, handles)
+if isstruct(handles) && isfield(handles, 'axes1') && isgraphics(handles.axes1)
+    return;
+end
+
+figHandle = ancestor(hObject, 'figure');
+if isempty(figHandle) || ~isgraphics(figHandle)
+    figHandle = hObject;
+end
+
+handles = guihandles(figHandle);
+handles.output = figHandle;
+guidata(figHandle, handles);
