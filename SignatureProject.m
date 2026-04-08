@@ -118,10 +118,8 @@ if isfield(handles, 'img1') && isfield(handles, 'img2')
         end
     end
     if flag
-        msgbox('Valid of Signature Verification');
         set(handles.resultview,'string','Valid of Signature Verification');
     else
-        warndlg('Invalid of Signature Verification');
         set(handles.resultview,'string','Invalid Signature');
     end    
 else
