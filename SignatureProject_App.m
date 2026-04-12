@@ -39,7 +39,7 @@ classdef SignatureProject_App < matlab.apps.AppBase
 
         %% SELECT ORIGINAL
         function pushbutton1_Callback(app, ~)
-            [file, path] = uigetfile('.');
+            [file, path] = uigetfile({'*.png;*.jpg;*.jpeg;*.bmp;*.tif;*.tiff','Image Files'});
             if isequal(file,0), return; end
             app.img1 = imread(fullfile(path,file));
             imshow(app.img1,'Parent',app.axes1);
@@ -48,7 +48,7 @@ classdef SignatureProject_App < matlab.apps.AppBase
 
         %% SELECT SAMPLE 1
         function pushbutton2_Callback(app, ~)
-            [file, path] = uigetfile('.');
+            [file, path] = uigetfile({'*.png;*.jpg;*.jpeg;*.bmp;*.tif;*.tiff','Image Files'});
             if isequal(file,0), return; end
             app.img2 = imread(fullfile(path,file));
             imshow(app.img2,'Parent',app.axes2);
@@ -57,7 +57,7 @@ classdef SignatureProject_App < matlab.apps.AppBase
 
         %% SELECT SAMPLE 2
         function pushbutton4_Callback(app, ~)
-            [file, path] = uigetfile('.');
+            [file, path] = uigetfile({'*.png;*.jpg;*.jpeg;*.bmp;*.tif;*.tiff','Image Files'});
             if isequal(file,0), return; end
             app.img3 = imread(fullfile(path,file));
             imshow(app.img3,'Parent',app.axes3);
@@ -66,7 +66,7 @@ classdef SignatureProject_App < matlab.apps.AppBase
 
         %% SELECT SAMPLE 3
         function pushbutton5_Callback(app, ~)
-            [file, path] = uigetfile('.');
+            [file, path] = uigetfile({'*.png;*.jpg;*.jpeg;*.bmp;*.tif;*.tiff','Image Files'});
             if isequal(file,0), return; end
             app.img4 = imread(fullfile(path,file));
             imshow(app.img4,'Parent',app.axes4);
