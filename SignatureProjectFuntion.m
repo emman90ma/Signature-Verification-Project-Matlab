@@ -2,9 +2,10 @@ function [val,im_pro] = SignatureProjectFuntion(I)
 I2=imresize(I,[512 ,512]);
 I3=rgb2gray(I2);
 I3=im2double(I3);
-I3=im2bw(I3);                     
+I3 = imbinarize(I3,'adaptive','ForegroundPolarity','dark','Sensitivity',0.40);                    
 I3 = bwmorph(~I3, 'thin', inf);                 
 I3=~I3;
+I3=~bwareaopen(~I3,4);
 im1 = I3;
 
 %extracting the black pixels
